@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #-----------------------------------------------------------
 
 
-def grafico_lineal(x, y=[], ecuacion=[]):
+def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales"):
     """Generacion de gráfico de funciones lineales.
 
     Args:
@@ -57,7 +57,7 @@ def grafico_lineal(x, y=[], ecuacion=[]):
                 
 
     # Personalizar gráfico
-    plt.title("Funciones $f(x)$ y $g(x)$ en [0,2]")
+    plt.title(titulo)
     plt.xlabel("x") # Nombre del eje x
     plt.ylabel("y") # Nombre del eje y
     plt.grid(False)  # Se puede poner "False" para sacar el cuadriculado del fondo
