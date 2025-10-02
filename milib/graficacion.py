@@ -28,20 +28,17 @@ def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales"):
     
     # Caso 1: y es UNA función
     if callable(y):
-        print("ESTOY USANDO ESTOOOOO")
         y_vals = y(x)
         plt.plot(x, y_vals, label=ecuacion, color="red", linestyle="--")
 
     # Caso 2: y es LISTA/TUPLA de funciones
     elif isinstance(y, (list, tuple)) and all(callable(f) for f in y):
-        print("ESTOY USANDO ESTAAAAAA")
         for i, f in enumerate(y):
             y_vals = f(x)
             lbl = ecuacion[i] if isinstance(ecuacion, (list, tuple)) else ecuacion
             plt.plot(x, y_vals, label=lbl, color=colors[i % len(colors)], linestyle="--")
             
     elif isinstance(y, (list, tuple)) and all(isinstance(f, (np.ndarray, list)) for f in y):
-        print("JAJAJAJAJAJJ")
         for i, f in enumerate(y):
             lbl = ecuacion[i] if isinstance(ecuacion, (list, tuple)) else ecuacion
             plt.plot(x, f, label=lbl, color=colors[i % len(colors)], linestyle="--")

@@ -19,3 +19,5 @@ from .metodos_integracion import trapecio
 from .metodos_integracion import simpson_13
 from .metodos_integracion import simpson_38
 from .metodos_integracion import cuadratura_gauss
+
+from .metodos_interpolacion import interpol_lagrange
