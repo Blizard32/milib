@@ -1,0 +1,12 @@
+README.md
+setup.py
+milib/__init__.py
+milib/aproximacion_raices.py
+milib/funciones.py
+milib/graficacion.py
+milib/metodos_integracion.py
+milib/operaciones_matematicas.py
+milib.egg-info/PKG-INFO
+milib.egg-info/SOURCES.txt
+milib.egg-info/dependency_links.txt
+milib.egg-info/top_level.txt
