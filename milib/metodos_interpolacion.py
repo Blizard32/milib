@@ -4,12 +4,20 @@
 
 
 def peso(vector, posicion, valor):
+    """
+    Calcula el peso de Lagrange para un punto en especifico
+    Args:
+        vector (vector): Son los datos de la tabla x-espaciados.
+        posicion (int): Es la posicion del vector que se esta evaluando.
+        valor (float): Es el valor en el que se quiere evaluar la funcion.
+        
+    Returns:
+        peso (float): Es el peso de lagrange para el punto en especifico.
+    """
     peso = 1
     for i in range(len(vector)):
         if i != posicion:
             peso *= (valor - vector[i]) / (vector[posicion] - vector[i])
-            # print(f"posicion: {posicion}, i: {i}, valor: {valor}, "
-            #     + "vector[i]: {vector[i]}, vector[posicion]: {vector[posicion]}, cosiente: {(valor - vector[i])}, divisor: {(vector[posicion] - vector[i])} peso: {peso}")
             
     return peso
 
