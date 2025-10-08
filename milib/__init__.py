@@ -22,3 +22,5 @@ from .metodos_integracion import cuadratura_gauss
 
 from .metodos_interpolacion import interpol_lagrange
 from .metodos_interpolacion import interpol_newton
+
+from .triangulacion import tuvieja
