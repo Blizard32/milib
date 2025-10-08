@@ -67,10 +67,20 @@ def a_n(n, x, y):
     """
     if n > 1:
         k = len(x)
-        # print("Comienzo recursividad") # Ayuda para debuggear
-        return (a_n(n-1, x[1:], y[1:]) - a_n(n-1, x[:-1], y[:-1])) / (x[n-1] - x[n-k])
+        x_izquierda = x[:-1]  # Todos los elementos menos el ultimo
+        x_derecha = x[1:]     # Todos los elementos menos el primero
+        
+        y_izquierda = y[:-1]  # Todos los elementos menos el ultimo
+        y_derecha = y[1:]     # Todos los elementos menos el primero
+        
+        # f[x0, x1, ..., xn] = (f[x1, ..., xn] - f[x0, ..., xn-1]) / (xn - x0) 
+        # donde tenemos: 
+        #   x0 = x[n-k]
+        #   nuestra funcion a_n requiere un nuevo n que representa el tamaño de la lista
+        
+        proxima_iteracion = n - 1
+        return (a_n(proxima_iteracion, x_derecha, y_derecha) - a_n(proxima_iteracion, x_izquierda, y_izquierda)) / (x[n-1] - x[n-k])
     else:
-        # print("Se devolvio f(k): ", y) # Ayuda para debuggear
         return y[0]
 
 def interpol_newton(matriz, valor):
@@ -86,7 +96,7 @@ def interpol_newton(matriz, valor):
     x = [fila[0] for fila in matriz]  # Se extraen los valores de la columna 1  [x]
     y = [fila[1] for fila in matriz]  # Se extraen los valores de la columna 2 [f(x)]
     if len(x) != len(y):
-        raise ValueError("Las listas x e y deben tener la misma longitud.")
+        raise ValueError("Las listas x e y deben tener la misma longitud.") # Da error si el archivo esta mal
     n = len(x)  # Se evalua la cantidad de puntos que se tienen
     polinomio_x = 0
     for i in range(1, n+1):
