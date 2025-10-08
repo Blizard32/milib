@@ -5,6 +5,7 @@ milib/aproximacion_raices.py
 milib/funciones.py
 milib/graficacion.py
 milib/metodos_integracion.py
+milib/metodos_interpolacion.py
 milib/operaciones_matematicas.py
 milib.egg-info/PKG-INFO
 milib.egg-info/SOURCES.txt
