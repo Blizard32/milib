@@ -82,6 +82,19 @@ def a_n(n, x, y):
         return (a_n(proxima_iteracion, x_derecha, y_derecha) - a_n(proxima_iteracion, x_izquierda, y_izquierda)) / (x[n-1] - x[n-k])
     else:
         return y[0]
+    
+# Mejorado con uso de cache, utiliza "last recently used" para guardar resultados previos ya calculados.
+# De esta manera no se necesita recalcular valores ya obtenidos para los siguientes a_k.
+from functools import lru_cache
+def a_n_mejorado(n, x, y):
+    @lru_cache(maxsize=None)
+    # Se crea una funcion interna recursiva para usar cache, i es el indice inicial
+    def _a_n(n, i):  
+        if n == 0:
+            return y[i]
+        return (_a_n(n-1, i+1) - _a_n(n-1, i)) / (x[i+n] - x[i])
+    
+    return _a_n(n-1, 0)
 
 def interpol_newton(matriz, valor):
     """Interpolacion de Newton mediante matriz pasada como argumento
@@ -104,10 +117,9 @@ def interpol_newton(matriz, valor):
         if(i == n):
             i = n*2  # Para cuando tengamos la uultima iteracion, se ejecuta la lista completa
              
-        # print(x[:-(n-i)], y[:-(n-i)]) # Ayuda para debuggear
-        adicion = a_n(coef, x[:-(n-i)], y[:-(n-i)])
+        adicion = a_n(coef, x[:-(n-i)], y[:-(n-i)]) # Coeficiente a_0, luego a_1; a_2; ...; a_n
         for j in range(coef-1):
-            adicion *= (valor - x[j])
+            adicion *= (valor - x[j])   # Multiplicacion por (x - x0)(x - x1)...(x - xk)
             
         polinomio_x += adicion
         
