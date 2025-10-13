@@ -82,7 +82,7 @@ def a_n(n, x, y):
         return (a_n(proxima_iteracion, x_derecha, y_derecha) - a_n(proxima_iteracion, x_izquierda, y_izquierda)) / (x[n-1] - x[n-k])
     else:
         return y[0]
-    
+
 # Mejorado con uso de cache, utiliza "last recently used" para guardar resultados previos ya calculados.
 # De esta manera no se necesita recalcular valores ya obtenidos para los siguientes a_k.
 from functools import lru_cache
@@ -117,10 +117,69 @@ def interpol_newton(matriz, valor):
         if(i == n):
             i = n*2  # Para cuando tengamos la uultima iteracion, se ejecuta la lista completa
              
-        adicion = a_n(coef, x[:-(n-i)], y[:-(n-i)]) # Coeficiente a_0, luego a_1; a_2; ...; a_n
+        adicion = a_n_mejorado(coef, x[:-(n-i)], y[:-(n-i)]) # Coeficiente a_0, luego a_1; a_2; ...; a_n
         for j in range(coef-1):
             adicion *= (valor - x[j])   # Multiplicacion por (x - x0)(x - x1)...(x - xk)
             
         polinomio_x += adicion
         
     return polinomio_x
+
+
+
+#------------------------------------------------------
+#               Interpolacion de Newton
+#           Vector de coeficientes mutable
+#------------------------------------------------------
+
+
+def coeficientes(x, y):
+    """
+    Calcula los coeficientes de las diferencias divididas
+    de Newton a partir de los puntos (x, y).
+    """
+    n = len(x)
+    # Copiamos los valores iniciales de y
+    coef = [yi for yi in y]
+
+    # Construimos la tabla de diferencias divididas
+    # Se cambian los valores del vector coef, haciendo que el nuevo valor de i sea 
+    # el resultado del valor actual del i con el valor del i-1 dividido por la diferencia de x's
+    
+    for j in range(1, n):
+        for i in range(n - 1, j - 1, -1):
+            coef[i] = (coef[i] - coef[i - 1]) / (x[i] - x[i - j])
+    return coef
+
+
+def calcular_Px(coef, x, val):
+    """
+    Evalúa el polinomio de Newton en el valor 'val'
+    usando los coeficientes obtenidos.
+    Retorna P(val)=a0 + a1(x-x0) + a2(x-x0)(x-x1) + ...
+    """
+    n = len(coef)
+    Px = coef[0] # El primer coeficiente es f(x0)
+
+    for i in range(1, n):
+        producto = 1
+        for j in range(i):
+            producto *= (val - x[j])    # (x - x0)(x - x1)...(x - x_(i-1))
+        Px += coef[i] * producto        # a_i * [ (x - x0)(x - x1)...(x - x_(i-1)) ]
+
+    return Px
+
+
+def Interpol_Newton_2(x, y, val):
+    """
+    Función principal que construye el polinomio interpolador
+    de Newton y lo evalúa en 'val'.
+    """
+    if len(x) != len(y):
+        raise ValueError("Los vectores x e y deben tener la misma longitud.")
+
+    # Obtener los coeficientes de Newton
+    coef = coeficientes(x, y)
+
+    # Calcular el valor interpolado
+    return calcular_Px(coef, x, val)
