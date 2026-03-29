@@ -24,3 +24,11 @@ from .metodos_interpolacion import interpol_lagrange
 from .metodos_interpolacion import interpol_newton
 
 from .triangulacion import tuvieja
+
+from .regreción_lineal import minimos_cuadrados
+from .regreción_lineal import graficar_recta_puntos
+from .regreción_lineal import f_minimo_cuadrado
+from .regreción_lineal import error_cuadratico_medio
+
+from .metodos_ESO import puntos_aprox_euler
+from .metodos_ESO import puntos_aprox_heung

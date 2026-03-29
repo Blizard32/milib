@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #-----------------------------------------------------------
 
 
-def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales"):
+def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales", mostrar_grafico = True):
     """Generacion de gráfico de funciones lineales.
 
     Args:
@@ -50,8 +50,6 @@ def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales"):
     else:
         raise ValueError("El parámetro y debe ser una función, lista de funciones o vector de valores.")
 
-        
-                
 
     # Personalizar gráfico
     plt.title(titulo)
@@ -70,11 +68,11 @@ def grafico_lineal(x, y=[], ecuacion=[], titulo="Funciones Lineales"):
     plt.legend(fontsize=12)
     plt.legend(title="Funciones", title_fontsize=10)
     #---------------------------------------------------------------------------
-
-    plt.show() # Muestra el gráfico de ptl
+    if mostrar_grafico:
+        plt.show() # Muestra el gráfico de ptl
     
     
-def grafico_puntos(x=[], y=[], titulo="", etiquetas=["Eje x", "Eje y"]):
+def grafico_puntos(x=[], y=[], titulo="", mostrar_grafico = True):
     """Generacion de gráfico de puntos.
 
     Args:
@@ -98,8 +96,13 @@ def grafico_puntos(x=[], y=[], titulo="", etiquetas=["Eje x", "Eje y"]):
 
     # Personalizar gráfico
     plt.title(titulo)
-    plt.xlabel(etiquetas[0]) # Nombre del eje x
-    plt.ylabel(etiquetas[1]) # Nombre del eje y
+    plt.xlabel("Eje x") # Nombre del eje x
+    plt.ylabel("Eje y") # Nombre del eje y
     plt.grid(False)  # Se pone "False" para sacar el cuadriculado del fondo
-
-    plt.show() # Muestra el gráfico de ptl
+    
+    if mostrar_grafico:
+        plt.show() # Muestra el gráfico de ptl
+        
+        
+        
+        

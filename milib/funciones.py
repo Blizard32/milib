@@ -99,6 +99,7 @@ def matriz_archivo(path, nombre, caracter=" "):
             vector = []
             numeros = linea.split(caracter)
             for number in numeros:
-                vector.append(float(number))
+                if number != "\n":
+                    vector.append(float(number))
             matriz.append(vector)
     return matriz
